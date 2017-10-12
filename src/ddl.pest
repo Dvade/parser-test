@@ -1,0 +1,21 @@
+ident = _{ ('a'..'z' | 'A'..'Z' | "_") ~ ('a'..'z' | 'A'..'Z' | "_" | '0'..'9')* }
+
+table_ident = { (full_table_name | table_name ) }
+full_table_name = { schema_name ~ "." ~ table_name }
+schema_name = { ident }
+table_name = { ident }
+
+columns_def = { column_def ~ ("," ~ column_def)* }
+column_def = { column_name ~ column_type? }
+column_name = { ident }
+column_type = { type_name }
+
+create_table_statement = { ^"create" ~ temp_mod? ~ ^"table" ~ if_not_exists_mod? ~ table_ident ~ "(" ~ columns_def ~ ")" }
+
+temp_mod = { (^"temp" | ^"temporary") }
+
+if_not_exists_mod = @{ ^"if" ~ ^"not" ~ ^"exists" }
+
+type_name = { (^"int" | ^"varchar" | ^"short" | ^"double") }
+
+whitespace = _{ " " | "\n" | "\r" | "\t" }

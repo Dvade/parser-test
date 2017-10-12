@@ -1,0 +1,8 @@
+[package]
+name = "parser-test"
+version = "0.1.0"
+authors = ["Igor Sapego <igorsapg@gmail.com>"]
+
+[dependencies]
+pest = "^1.0.0-beta"
+pest_derive = "^1.0.0-beta"
